@@ -17,35 +17,41 @@ public class DissolveTrigger : MonoBehaviour
     private void Update()
     {
         // press d and start the dissolving
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            if (readyToDissolve)
-                InvokeDissolve();
-        }
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    if (readyToDissolve)
+        //        InvokeDissolve();
+        //}
            
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            if (!readyToDissolve)
-                InvokeReform();
-        }
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    if (!readyToDissolve)
+        //        InvokeReform();
+        //}
             
     }
 
-    private void InvokeDissolve ()
+    public void InvokeDissolve ()
     {
-        // repeating call the Dissolve function at a dissolve rate seconds
-        startDissolve = 1;
-        readyToDissolve = false;
-        InvokeRepeating("Dissolve", 0, dissolveRate);
+        if (readyToDissolve)
+        {
+            // repeating call the Dissolve function at a dissolve rate seconds
+            startDissolve = 1;
+            readyToDissolve = false;
+            InvokeRepeating("Dissolve", 0, dissolveRate);
+        }
     }
 
-    private void InvokeReform()
+    public void InvokeReform()
     {
-        // repeating call the Reform function at a dissolve rate seconds
-        startDissolve = 0.001f;
-        readyToDissolve = true;
-        InvokeRepeating("Reform", 0, dissolveRate);
+        if (!readyToDissolve)
+        {
+            // repeating call the Reform function at a dissolve rate seconds
+            startDissolve = 0.001f;
+            readyToDissolve = true;
+            InvokeRepeating("Reform", 0, dissolveRate);
+        }
     }
 
     private void Dissolve()
