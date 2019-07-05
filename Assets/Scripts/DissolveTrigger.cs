@@ -6,31 +6,13 @@ public class DissolveTrigger : MonoBehaviour
 {
     // store the mesh renderer
     public SkinnedMeshRenderer meshRenderer;
-    public string shaderDissolveValueKey = "Vector1_5FD04FB2";
-    public float startDissolve = 0f;
-    public float reformStart = 1f;
-    private float dissolveRate = 0.01f;
+    private readonly string shaderDissolveValueKey = "Vector1_5FD04FB2";
+    private float startDissolve = 0f;
+    private readonly float reformStart = 1f;
+    private readonly float dissolveRate = 0.01f;
     private bool readyToDissolve = true;
 
-
-
-    private void Update()
-    {
-        // press d and start the dissolving
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    if (readyToDissolve)
-        //        InvokeDissolve();
-        //}
-           
-
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    if (!readyToDissolve)
-        //        InvokeReform();
-        //}
-            
-    }
+    
 
     public void InvokeDissolve ()
     {
@@ -59,10 +41,16 @@ public class DissolveTrigger : MonoBehaviour
         // if in the middle of reforming, cancel it
         CancelInvoke("Reform");
 
+        // decrement the value
         meshRenderer.material.SetFloat(shaderDissolveValueKey, startDissolve -= dissolveRate);
+
+        // check once the value hits the lower limit. Bug at 0.0f
         if (meshRenderer.material.GetFloat(shaderDissolveValueKey) <= 0.01)
         {
+            // it's now ready to be reformed again
             readyToDissolve = false;
+
+            // cancel the dissolving
             CancelInvoke("Dissolve");
         }
     }
@@ -72,10 +60,16 @@ public class DissolveTrigger : MonoBehaviour
         // if in the middle of dissolving, cancel it
         CancelInvoke("Dissolve");
 
+        // increment the value
         meshRenderer.material.SetFloat(shaderDissolveValueKey, startDissolve += dissolveRate);
+
+        // check once the value hits the upper limit. Bug at 1.0f
         if (meshRenderer.material.GetFloat(shaderDissolveValueKey) >= 0.95)
         {
+            // it's now ready to be dissolved again
             readyToDissolve = true;
+
+            // cancel the reforming
             CancelInvoke("Reform");
         }
     }

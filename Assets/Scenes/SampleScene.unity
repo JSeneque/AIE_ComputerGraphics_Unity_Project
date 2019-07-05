@@ -781,9 +781,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 761770231}
-  shaderDissolveValueKey: Vector1_5FD04FB2
-  startDissolve: 0.001
-  reformStart: 1
 --- !u!1 &1539856910
 GameObject:
   m_ObjectHideFlags: 0
