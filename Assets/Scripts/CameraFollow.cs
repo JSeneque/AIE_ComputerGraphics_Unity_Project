@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    // this class helps to follow the player smoothly
+
     public Transform target;
     public float smoothing;
 
@@ -20,6 +22,8 @@ public class CameraFollow : MonoBehaviour
         if (transform.position != target.position)
         {
             Vector3 newPosition = new Vector3(target.position.x, transform.position.y, target.position.z+3.5f);
+
+            // use lerp for a smoother movement
             transform.position = Vector3.Lerp(transform.position, newPosition, smoothing);
         }
     }

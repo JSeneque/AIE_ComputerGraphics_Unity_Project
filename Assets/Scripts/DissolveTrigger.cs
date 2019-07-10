@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DissolveTrigger : MonoBehaviour
 {
+    // This class controls the dissolving and reforming shader that is attached to a gameobject
+
     // store the mesh renderer
     public SkinnedMeshRenderer meshRenderer;
     private readonly string shaderDissolveValueKey = "Vector1_5FD04FB2";
